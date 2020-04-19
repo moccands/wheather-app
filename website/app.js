@@ -4,8 +4,13 @@ let apiKey = '&appid=7410715a75a449f7c6e0c4f207575f6e'
 document.getElementById('generate').addEventListener('click', performAction);
 
 function performAction(e){
-const newZip =  document.getElementById('zip').value;
-getZip(baseURL,newZip, apiKey)
+  const newZip =  document.getElementById('zip').value;
+  const newuserResponse =  document.getElementById('feelings').value;
+  getZip(baseURL,newZip, apiKey).then(function(data){
+    postData('/meteo',{  temperature: data.list[0].main.temp, date: data.list[0].dt_txt, userResponse: newuserResponse });
+  })
+  
+
 
 }
 const getZip = async (baseURL, zip, key)=>{
@@ -45,6 +50,5 @@ const postData = async ( url = '', data = {})=>{
   
   // TODO-Call Function
   
-  postData('/meteo', {  temperature: 25, date: "4.18.2020", userResponse: "yes" });
 
   console.log("post data")
