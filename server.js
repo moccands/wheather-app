@@ -36,7 +36,7 @@ function listening(){
 app.get('/all', sendData);
 
 function sendData (request, response) {
-  response.send(projectData);
+  response.send(projectData[projectData.length -1]);
 };
 
 projectData = [];
@@ -48,7 +48,6 @@ app.post('/meteo', weather);
 
 // each time a client add an animal & a score data will be stored in data (la costant data)
 function weather (req,res){
-    console.log('got soemthing')
     let newData = req.body;
     let newEntry = {
         temperature: newData.temperature,
@@ -56,6 +55,4 @@ function weather (req,res){
         userResponse: newData.userResponse
     }
     projectData.push(newEntry);
-    console.log(newEntry);
-
 };

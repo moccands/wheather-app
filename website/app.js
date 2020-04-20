@@ -8,7 +8,7 @@ function performAction(e){
   const newuserResponse =  document.getElementById('feelings').value;
   getZip(baseURL,newZip, apiKey).then(function(data){
     postData('/meteo',{  temperature: data.list[0].main.temp, date: data.list[0].dt_txt, userResponse: newuserResponse });
-  })
+  }).then(function(){getData()});
   
 
 
@@ -17,9 +17,24 @@ const getZip = async (baseURL, zip, key)=>{
 
   const res = await fetch(baseURL+zip+key)
   try {
+    const data = await res.json();
+    return data;
+  }  catch(error) {
+    console.log("error", error);
+    // appropriately handle the error
+  }
+}
+
+const getData = async (url = '')=>{
+
+  const res = await fetch(url+'/all')
+  try {
 
     const data = await res.json();
-    console.log(data)
+    document.getElementById('temp').innerText = data.temperature;
+    document.getElementById('date').innerText = data.date;
+    document.getElementById('content').innerText = data.userResponse;
+
     return data;
   }  catch(error) {
     console.log("error", error);
@@ -28,7 +43,6 @@ const getZip = async (baseURL, zip, key)=>{
 }
 
 const postData = async ( url = '', data = {})=>{
-    console.log(data)
       const response = await fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       credentials: 'same-origin', // include, *same-origin, omit
