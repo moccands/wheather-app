@@ -1,5 +1,5 @@
-let baseURL = 'http://api.openweathermap.org/data/2.5/forecast?zip='
-let apiKey = '&appid=7410715a75a449f7c6e0c4f207575f6e'
+const baseURL = 'http://api.openweathermap.org/data/2.5/forecast?zip='
+const apiKey = '&appid=7410715a75a449f7c6e0c4f207575f6e&units=imperial';
 
 document.getElementById('generate').addEventListener('click', performAction);
 
