@@ -6,11 +6,11 @@ document.getElementById('generate').addEventListener('click', performAction);
 function performAction(e){
   const newZip =  document.getElementById('zip').value;
   const newuserResponse =  document.getElementById('feelings').value;
-  getZip(baseURL,newZip, apiKey).then(function(data){
-    postData('/meteo',{  temperature: data.list[0].main.temp, date: data.list[0].dt_txt, userResponse: newuserResponse });
-  }).then(function(){getData()});
-  
-
+  if(newZip > 0) {
+    getZip(baseURL,newZip, apiKey).then(function(data){
+      postData('/meteo',{  temperature: data.list[0].main.temp, date: data.list[0].dt_txt, userResponse: newuserResponse });
+    }).then(function(){getData()});
+  }
 
 }
 const getZip = async (baseURL, zip, key)=>{
@@ -64,5 +64,3 @@ const postData = async ( url = '', data = {})=>{
   
   // TODO-Call Function
   
-
-  console.log("post data")
